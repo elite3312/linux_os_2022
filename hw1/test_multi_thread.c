@@ -35,7 +35,7 @@ void *thread1(void *arg) {
     }
 
     printf("============= thread1 =============\n");
-    printf("pid = %d  tid = %d\n", (int)getpid(), (int)gettid());
+    printf("pid = %d  tid = %d\n", (int)getpid(), (int)getgid());
     printf("segment\tvir_addr\tphy_addr\n");
     printf("TLS\t%lx\t%lx\n", vir_addrs[0], phy_addrs[0]);
     printf("stack\t%lx\t%lx\n", vir_addrs[1], phy_addrs[1]);
@@ -70,7 +70,7 @@ void *thread2(void *arg) {
     }
 
     printf("============= thread2 =============\n");
-    printf("pid = %d  tid = %d\n", (int)getpid(), (int)gettid());
+    printf("pid = %d  tid = %d\n", (int)getpid(), (int)getgid());
     printf("segment\tvir_addr\tphy_addr\n");
     printf("TLS\t%lx\t%lx\n", vir_addrs[0], phy_addrs[0]);
     printf("stack\t%lx\t%lx\n", vir_addrs[1], phy_addrs[1]);
@@ -105,7 +105,7 @@ void *thread3(void *arg) {
     }
 
     printf("============= thread3 =============\n");
-    printf("pid = %d  tid = %d\n", (int)getpid(), (int)gettid());
+    printf("pid = %d  tid = %d\n", (int)getpid(), (int)getgid());
     printf("segment\tvir_addr\tphy_addr\n");
     printf("TLS\t%lx\t%lx\n", vir_addrs[0], phy_addrs[0]);
     printf("stack\t%lx\t%lx\n", vir_addrs[1], phy_addrs[1]);
@@ -149,7 +149,7 @@ int main() {
     }
 
     printf("============= main =============\n");
-    printf("pid = %d  tid = %d\n", (int)getpid(), (int)gettid());
+    printf("pid = %d  tid = %d\n", (int)getpid(), (int)getgid());
     printf("segment\tvir_addr\tphy_addr\n");
     printf("TLS\t%lx\t%lx\n", vir_addrs[0], phy_addrs[0]);
     printf("stack\t%lx\t%lx\n", vir_addrs[1], phy_addrs[1]);
