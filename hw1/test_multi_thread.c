@@ -13,6 +13,7 @@ int code_function() {
 }
 static __thread int thread_local_storage_value = 246;
 
+
 void *thread1(void *arg) {
     sleep(2);
     int stack_value = 100;
@@ -28,14 +29,15 @@ void *thread1(void *arg) {
     unsigned long vir_addrs[7] = {TLS, stack, lib, heap, bss, data, code};
     unsigned long phy_addrs[7];
 
-    long copy = syscall(548, vir_addrs, len, phy_addrs, len);
+    long copy = syscall(441, vir_addrs, len, phy_addrs, len);
     if (copy < 0) {
         printf("address transfer failed!!");
         exit(1);
     }
 
+
     printf("============= thread1 =============\n");
-    printf("pid = %d  tid = %d\n", (int)getpid(), (int)getgid());
+    printf("pid = %d  tid = %d\n", (int)getpid(), (int)gettid());
     printf("segment\tvir_addr\tphy_addr\n");
     printf("TLS\t%lx\t%lx\n", vir_addrs[0], phy_addrs[0]);
     printf("stack\t%lx\t%lx\n", vir_addrs[1], phy_addrs[1]);
@@ -63,14 +65,15 @@ void *thread2(void *arg) {
     unsigned long vir_addrs[7] = {TLS, stack, lib, heap, bss, data, code};
     unsigned long phy_addrs[7];
 
-    long copy = syscall(548, vir_addrs, len, phy_addrs, len);
+    long copy = syscall(441, vir_addrs, len, phy_addrs, len);
     if (copy < 0) {
         printf("address transfer failed!!");
         exit(1);
     }
 
+
     printf("============= thread2 =============\n");
-    printf("pid = %d  tid = %d\n", (int)getpid(), (int)getgid());
+    printf("pid = %d  tid = %d\n", (int)getpid(), (int)gettid());
     printf("segment\tvir_addr\tphy_addr\n");
     printf("TLS\t%lx\t%lx\n", vir_addrs[0], phy_addrs[0]);
     printf("stack\t%lx\t%lx\n", vir_addrs[1], phy_addrs[1]);
@@ -79,6 +82,7 @@ void *thread2(void *arg) {
     printf("bss\t%lx\t%lx\n", vir_addrs[4], phy_addrs[4]);
     printf("data\t%lx\t%lx\n", vir_addrs[5], phy_addrs[5]);
     printf("code\t%lx\t%lx\n", vir_addrs[6], phy_addrs[6]);
+
 
     pthread_exit(NULL); // 離開子執行緒
 }
@@ -98,14 +102,17 @@ void *thread3(void *arg) {
     unsigned long vir_addrs[7] = {TLS, stack, lib, heap, bss, data, code};
     unsigned long phy_addrs[7];
 
-    long copy = syscall(548, vir_addrs, len, phy_addrs, len);
+    long copy = syscall(441, vir_addrs, len, phy_addrs, len);
     if (copy < 0) {
         printf("address transfer failed!!");
         exit(1);
     }
 
+
     printf("============= thread3 =============\n");
-    printf("pid = %d  tid = %d\n", (int)getpid(), (int)getgid());
+    printf("pid = %d  tid = %d\n", (int)getpid(), (int)gettid());
+
+    //printf("pid = %d  tid = %d\n", (int)getpid(), syscall(__NR_gettid));
     printf("segment\tvir_addr\tphy_addr\n");
     printf("TLS\t%lx\t%lx\n", vir_addrs[0], phy_addrs[0]);
     printf("stack\t%lx\t%lx\n", vir_addrs[1], phy_addrs[1]);
@@ -114,6 +121,7 @@ void *thread3(void *arg) {
     printf("bss\t%lx\t%lx\n", vir_addrs[4], phy_addrs[4]);
     printf("data\t%lx\t%lx\n", vir_addrs[5], phy_addrs[5]);
     printf("code\t%lx\t%lx\n", vir_addrs[6], phy_addrs[6]);
+
 
     pthread_exit(NULL); // 離開子執行緒
 }
@@ -142,14 +150,15 @@ int main() {
     unsigned long vir_addrs[7] = {TLS, stack, lib, heap, bss, data, code};
     unsigned long phy_addrs[7];
 
-    long copy = syscall(548, vir_addrs, len, phy_addrs, len);
+    long copy = syscall(441, vir_addrs, len, phy_addrs, len);
     if (copy < 0) {
         printf("address transfer failed!!");
         exit(1);
     }
 
+
     printf("============= main =============\n");
-    printf("pid = %d  tid = %d\n", (int)getpid(), (int)getgid());
+    printf("pid = %d  tid = %d\n", (int)getpid(), (int)gettid());
     printf("segment\tvir_addr\tphy_addr\n");
     printf("TLS\t%lx\t%lx\n", vir_addrs[0], phy_addrs[0]);
     printf("stack\t%lx\t%lx\n", vir_addrs[1], phy_addrs[1]);
@@ -158,6 +167,7 @@ int main() {
     printf("bss\t%lx\t%lx\n", vir_addrs[4], phy_addrs[4]);
     printf("data\t%lx\t%lx\n", vir_addrs[5], phy_addrs[5]);
     printf("code\t%lx\t%lx\n", vir_addrs[6], phy_addrs[6]);
+
 
     printf("----------- thread address ------------\n");
     printf("t1 = %p\n", &t1);

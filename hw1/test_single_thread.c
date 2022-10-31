@@ -26,7 +26,7 @@ int main() {
     unsigned long vir_addrs[6] = {stack, lib, heap, bss, data, code};
     unsigned long phy_addrs[6];
 
-    long copy = syscall(548, vir_addrs, len, phy_addrs, len);
+    long copy = syscall(441, vir_addrs, len, phy_addrs, len);
     if (copy < 0) {
         printf("address transfer failed!!");
         exit(1);
