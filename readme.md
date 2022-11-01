@@ -12,7 +12,7 @@ Includes some problems solved by adding linux system calls.
 
 ## foot notes
 - when compiling a multithreaded c program, use gcc -pthread.
-- when compiling a c program that laods dlopen, dlsym, etc, use gcc -ldl -shared -fPIC
+- when compiling a c program that loads dlopen, dlsym, etc, use gcc -ldl -shared -fPIC
 ## hw1
 - Write a multi-thread program with three threads (main thread, thread 1, and thread 2) and the new system calls to check which segments of a thread are shared by which other thread(s).
 

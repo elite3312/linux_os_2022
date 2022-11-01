@@ -5,7 +5,8 @@
 #include <string.h>
 #include <sys/types.h>
 #include <syscall.h>
-
+#define __NR_get_segments 443
+#define MAX_BUF_SIZE 128
 int bss_value;
 int data_value = 123;
 int code_function() {
@@ -13,7 +14,18 @@ int code_function() {
 }
 static __thread int thread_local_storage_value = 246;
 
+	unsigned long start_addr;
+	unsigned long end_addr;
+	char seg_name[MAX_BUF_SIZE];
+};
 
+struct ProcessSegments {
+	pid_t pid;
+	struct Segment code_seg;
+	struct Segment data_seg;
+	struct Segment heap_seg;
+	struct Segment stack_seg;
+};
 void *thread1(void *arg) {
     sleep(2);
     int stack_value = 100;
@@ -46,7 +58,43 @@ void *thread1(void *arg) {
     printf("bss\t%lx\t%lx\n", vir_addrs[4], phy_addrs[4]);
     printf("data\t%lx\t%lx\n", vir_addrs[5], phy_addrs[5]);
     printf("code\t%lx\t%lx\n", vir_addrs[6], phy_addrs[6]);
+    
+    printf("\n=== finding the start, end address and size of this thread segment=== \n");
+    struct ProcessSegments thread_segs;
+	int tid = 0;
+	tid = syscall(__NR_gettid);
+	thread_segs.pid = tid;
+    // get segments //把上面那個get_segments 寫進system call
+    syscall(__NR_get_segments, (void *) &thread_segs);
+	
+    
+	printf("%s: %lx-%lx (%lx-%lx) \n", 
+			thread_segs.code_seg.seg_name,
+			thread_segs.code_seg.start_addr,
+			thread_segs.code_seg.end_addr,
+			get_phys_addr(thread_segs.code_seg.start_addr),
+			get_phys_addr(thread_segs.code_seg.end_addr));
+	
+    printf("%s: %lx-%lx (%lx-%lx)\n", 
+			thread_segs.data_seg.seg_name,
+			thread_segs.data_seg.start_addr,
+			thread_segs.data_seg.end_addr,
+			get_phys_addr(thread_segs.data_seg.start_addr),
+			get_phys_addr(thread_segs.data_seg.end_addr));
 
+    printf("%s: %lx-%lx (%lx-%lx)\n", 
+			thread_segs.heap_seg.seg_name, 
+			thread_segs.heap_seg.start_addr, 
+			thread_segs.heap_seg.end_addr,
+			get_phys_addr(thread_segs.heap_seg.start_addr), 
+			get_phys_addr(thread_segs.heap_seg.end_addr));
+    
+	printf("%s: %lx-%lx (%lx-%lx)\n", 
+			thread_segs.stack_seg.seg_name, 
+			thread_segs.stack_seg.start_addr, 
+			thread_segs.stack_seg.end_addr,
+			get_phys_addr(thread_segs.stack_seg.start_addr), 
+			get_phys_addr(thread_segs.stack_seg.end_addr));
     pthread_exit(NULL); // 離開子執行緒
 }
 
