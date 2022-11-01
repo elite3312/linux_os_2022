@@ -169,10 +169,10 @@ void get_thread_seg(char* thread_name, pthread_t pid) {
 int main(){
 
   	pthread_t pid1,pid2;//,pid3;
-	pthread_create(&pid1,NULL,worker,main);
-	sleep(1);
-	pthread_create(&pid2,NULL,worker,main);
-	sleep(1);
+	//pthread_create(&pid1,NULL,worker,main);
+	//sleep(1);
+	//pthread_create(&pid2,NULL,worker,main);
+	//sleep(1);
 	//pthread_create(&pid3,NULL,worker,main);
 	//sleep(1);
 	char thread_name_1[] = "Thread1";
@@ -180,10 +180,10 @@ int main(){
 	//char thread_name_3[] = "Thread3";
         
 
-	//pthread_create(&pid1, NULL, get_thread_seg, thread_name_1);
-    //sleep(1);
-	//pthread_create(&pid2, NULL, get_thread_seg, thread_name_2);
-    //sleep(1);
+	pthread_create(&pid1, NULL, get_thread_seg, thread_name_1);
+    sleep(1);
+	pthread_create(&pid2, NULL, get_thread_seg, thread_name_2);
+    sleep(1);
 	// pthread_create(&pid3, NULL, get_thread_seg, thread_name_3);
     // sleep(1);
 
