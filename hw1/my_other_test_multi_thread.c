@@ -37,8 +37,9 @@ struct AddrInfo {
 unsigned long get_shr_mem_addr() {
 	
 	void *fHandle;
-	fHandle = dlopen("/lib/x86_64-linux-gnu/libc-2.27.so",RTLD_LAZY);
-
+	//fHandle = dlopen("/lib/x86_64-linux-gnu/libc-2.27.so",RTLD_LAZY);
+	
+	fHandle = dlopen("/lib/x86_64-linux-gnu/libc-2.31.so",RTLD_LAZY);
 	void (*func)(); //This a function pointer //point to a function which will return void
 	unsigned long addr;
 	if(!fHandle){
