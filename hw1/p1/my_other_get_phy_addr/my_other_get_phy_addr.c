@@ -55,23 +55,23 @@ SYSCALL_DEFINE2(my_other_get_phy_addr, unsigned long *, initial,
 		printk("not mapped in pudn");
 	}
 
-	pmd = pmd_offset(pud, *(initial + i));
+	pmd = pmd_offset(pud, *(vir_adds + i));
 	printk("pmd_val = 0x%lx\n", pmd_val(*pmd));
-	printk("pmd_index = %lu\n", pmd_index(*(initial + i)));
+	printk("pmd_index = %lu\n", pmd_index(*(vir_adds + i)));
 	if (pmd_none(*pmd)) {
 		printk("not mapped in pmdn");
 	}
 
-	pte = pte_offset_kernel(pmd, *(initial + i));
+	pte = pte_offset_kernel(pmd, *(vir_adds + i));
 	printk("pte_val = 0x%lx\n", pte_val(*pte));
-	printk("pte_index = %lu\n", pte_index(*(initial + i)));
+	printk("pte_index = %lu\n", pte_index(*(vir_adds + i)));
 	if (pte_none(*pte)) {
 		printk("not mapped in pten");
 	}
 
 	
 	page_addr = pte_val(*pte) & PAGE_MASK; 
-	page_offset = *(initial + i) & ~PAGE_MASK;
+	page_offset = *(vir_adds + i) & ~PAGE_MASK;
 
 	//physical address
 	*(phy_adds + i) = page_addr | page_offset;
