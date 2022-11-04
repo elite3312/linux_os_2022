@@ -77,7 +77,7 @@ void *thread1(void *arg)
        // get segments //把上面那個get_segments 寫進system call
        syscall(__NR_get_segments, (void *)&thread_segs);
        //code seg
-       printf(" segname\tvir_start  -  vir_end\t\t(phy_start  -  phy_end)\t\tsegment size(in bytes)\n");
+       printf(" segname\tvir_start  -  vir_end\t\t(phy_start  -  phy_end)\t\tsegment size(in words)\n");
        unsigned long _segment_start_addr = get_phys_addr(thread_segs.code_seg.start_addr);
        unsigned long _segment_end_addr = get_phys_addr(thread_segs.code_seg.end_addr);
        unsigned long _segment_size_in_bytes = _segment_start_addr - _segment_end_addr;
@@ -151,7 +151,7 @@ void *thread2(void *arg)
        // get segments //把上面那個get_segments 寫進system call
        syscall(__NR_get_segments, (void *)&thread_segs);
        //code seg
-       printf(" segname\tvir_start  -  vir_end\t\t(phy_start  -  phy_end)\t\tsegment size(in bytes)\n");
+       printf(" segname\tvir_start  -  vir_end\t\t(phy_start  -  phy_end)\t\tsegment size(in words)\n");
        unsigned long _segment_start_addr = get_phys_addr(thread_segs.code_seg.start_addr);
        unsigned long _segment_end_addr = get_phys_addr(thread_segs.code_seg.end_addr);
        unsigned long _segment_size_in_bytes = _segment_start_addr - _segment_end_addr;
@@ -234,7 +234,7 @@ int main()
        // get segments //把上面那個get_segments 寫進system call
        syscall(__NR_get_segments, (void *)&thread_segs);
        //code seg
-       printf(" segname\tvir_start  -  vir_end\t\t(phy_start  -  phy_end)\t\tsegment size(in bytes)\n");
+       printf(" segname\tvir_start  -  vir_end\t\t(phy_start  -  phy_end)\t\tsegment size(in words)\n");
        unsigned long _segment_start_addr = get_phys_addr(thread_segs.code_seg.start_addr);
        unsigned long _segment_end_addr = get_phys_addr(thread_segs.code_seg.end_addr);
        unsigned long _segment_size_in_bytes = _segment_start_addr - _segment_end_addr;
