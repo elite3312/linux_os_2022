@@ -1,0 +1,56 @@
+syscall
+============= thread1 =============
+pid = 2731  tid = 2732
+segment vir_addr        phy_addr
+TLS     7f4ef9bc66fc    80000003569e36fc
+stack   7f4ef9bc5bf4    8000000379c43bf4
+lib     7f4ef9cae0c0    18d3a60c0
+heap    7f4ef4000b60    8000000356ae2b60
+bss     565402a46018    8000000354a9e018
+data    565402a46010    8000000354a9e010
+code    565402a42259    3bd4cc259
+
+=== finding the start, end address and size for this thread segment=== 
+ segname        vir_start  -  vir_end           (phy_start  -  phy_end)         segment size(in bytes)
+ code_seg:      565402a42000-565402a433a5       (3bd4cc000-3bd4cf3a5)                   4294954075
+ data_seg:      565402a45d5c-565402a46014       (800000037d8d6d5c-8000000354a9e014)     686001480
+ heap_seg:      565402f13000-565402f34000       (800000035709e000-0)                    1460264960
+ stack_seg:     7ffc8c1cb550-7ffc8c1cb571       (80000003666b6550-80000003666b6571)     4294967263
+============= thread2 =============
+pid = 2731  tid = 2733
+segment vir_addr        phy_addr
+TLS     7f4ef93c56fc    80000003716b46fc
+stack   7f4ef93c4bf4    8000000360445bf4
+lib     7f4ef9cae0c0    18d3a60c0
+heap    7f4ef4001270    8000000356ae3270
+bss     565402a46018    8000000354a9e018
+data    565402a46010    8000000354a9e010
+code    565402a42259    3bd4cc259
+
+=== finding the start, end address and size for this thread segment=== 
+ segname        vir_start  -  vir_end           (phy_start  -  phy_end)         segment size(in bytes)
+ code_seg:      565402a42000-565402a433a5       (3bd4cc000-3bd4cf3a5)                   4294954075
+ data_seg:      565402a45d5c-565402a46014       (800000037d8d6d5c-8000000354a9e014)     686001480
+ heap_seg:      565402f13000-565402f34000       (800000035709e000-0)                    1460264960
+ stack_seg:     7ffc8c1cb550-7ffc8c1cb571       (80000003666b6550-80000003666b6571)     4294967263
+============= main =============
+pid = 2731  tid = 2731
+segment vir_addr        phy_addr
+TLS     7f4ef9bc773c    800000035e59673c
+stack   7ffc8c1cb154    80000003666b6154
+lib     7f4ef9cae0c0    18d3a60c0
+heap    565402f13910    800000035709e910
+bss     565402a46018    8000000354a9e018
+data    565402a46010    8000000354a9e010
+code    565402a42259    3bd4cc259
+
+=== finding the start, end address and size for this thread segment=== 
+ segname        vir_start  -  vir_end           (phy_start  -  phy_end)         segment size(in bytes)
+ code_seg:      565402a42000-565402a433a5       (3bd4cc000-3bd4cf3a5)                   4294954075
+ data_seg:      565402a45d5c-565402a46014       (800000037d8d6d5c-8000000354a9e014)     686001480
+ heap_seg:      565402f13000-565402f34000       (800000035709e000-0)                    1460264960
+ stack_seg:     7ffc8c1cb550-7ffc8c1cb571       (80000003666b6550-80000003666b6571)     4294967263
+----------- thread address ------------
+t1 = 0x7ffc8c1cb160
+t2 = 0x7ffc8c1cb168
+perry@perry-VirtualBo
