@@ -52,23 +52,19 @@ void *thread1(void *arg) {
     unsigned long vir_addrs[7] = {TLS, stack, lib, heap, bss, data, code};
     unsigned long phy_addrs[7];
 
-    long copy = syscall(441, vir_addrs, len, phy_addrs, len);
-    if (copy < 0) {
-        printf("address transfer failed!!");
-        exit(1);
-    }
+ 
 
 
     printf("============= thread1 =============\n");
     printf("pid = %d  tid = %d\n", (int)getpid(), (int)gettid());
     printf("segment\tvir_addr\tphy_addr\n");
-    printf("TLS\t%lx\t%lx\n", vir_addrs[0], phy_addrs[0]);
-    printf("stack\t%lx\t%lx\n", vir_addrs[1], phy_addrs[1]);
-    printf("lib\t%lx\t%lx\n", vir_addrs[2], phy_addrs[2]);
-    printf("heap\t%lx\t%lx\n", vir_addrs[3], phy_addrs[3]);
-    printf("bss\t%lx\t%lx\n", vir_addrs[4], phy_addrs[4]);
-    printf("data\t%lx\t%lx\n", vir_addrs[5], phy_addrs[5]);
-    printf("code\t%lx\t%lx\n", vir_addrs[6], phy_addrs[6]);
+    printf("TLS\t%lx\t%lx\n", vir_addrs[0], get_phys_addr(vir_addrs[0]));
+    printf("stack\t%lx\t%lx\n", vir_addrs[1], get_phys_addr(vir_addrs[1]));
+    printf("lib\t%lx\t%lx\n", vir_addrs[2], get_phys_addr(vir_addrs[2]));
+    printf("heap\t%lx\t%lx\n", vir_addrs[3], get_phys_addr(vir_addrs[3]));
+    printf("bss\t%lx\t%lx\n", vir_addrs[4], get_phys_addr(vir_addrs[4]));
+    printf("data\t%lx\t%lx\n", vir_addrs[5], get_phys_addr(vir_addrs[5]));
+    printf("code\t%lx\t%lx\n", vir_addrs[6], get_phys_addr(vir_addrs[6]));
     
     printf("\n=== finding the start, end address and size of this thread segment=== \n");
     struct ProcessSegments thread_segs;
