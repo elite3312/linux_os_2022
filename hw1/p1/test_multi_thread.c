@@ -273,6 +273,7 @@ int main()
        printf("----------- thread address ------------\n");
        printf("t1 = %p\n", &t1);
        printf("t2 = %p\n", &t2);
+       getchar();
 
        return 0;
 }
