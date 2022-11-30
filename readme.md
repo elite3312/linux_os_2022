@@ -15,4 +15,10 @@ Includes some problems solved by adding linux system calls.
 - when compiling a c program that loads dlopen, dlsym, etc, use gcc -ldl -shared -fPIC
 ## hw1
 - Write a multi-thread program with three threads (main thread, thread 1, and thread 2) and the new system calls to check which segments of a thread are shared by which other thread(s).
-
+## hw2 
+### Question
+- Write a program using the system call you wrote in Project 1 to check how memory areas are shared by two processes that execute this program simultaneously.
+- The memory areas include code segments, data segments, BSS segments, heap segments, libraries, stack segments.
+### hint
+- When making your check, both related processes must be in progress. Hence you may need to use function sleep() to guarantee this requirement.
+- Inside the Linux kernel, you need to use function copy_from_user() and function copy_to_user() to copy data from/to a user address buffer.

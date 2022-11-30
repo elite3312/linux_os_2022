@@ -1,0 +1,20 @@
+
+perry@perry-VirtualBox:~/Desktop/linux_os_2022/hw2$ ./test_single_thread.out 
+
+============= main =============
+pid = 5714  tid = 5714
+segment vir_addr        phy_addr
+TLS     7f36443fc57c    8000000339dd557c
+stack   7ffd2ee044b4    800000032c1624b4
+lib     7f36442ed0c0    2ae9280c0
+heap    5563104742a0    80000003757592a0
+bss     55631029f018    8000000334dd1018
+data    55631029f010    8000000334dd1010
+code    55631029c219    37da3a219
+
+=== finding the start, end address and size for this thread segment=== 
+ segname        vir_start  -  vir_end           (phy_start  -  phy_end)                 segment size(in bytes)
+ code_seg:      55631029c000-55631029c855       (37da3a000-37da3a855)                   4294965163
+ data_seg:      55631029ed7c-55631029f014       (8000000326016d7c-8000000334dd1014)     4045692264
+ heap_seg:      556310474000-556310495000       (8000000375759000-0)                    1970638848
+ stack_seg:     7ffd2ee048a0-7ffd2ee048c1       (800000032c1628a0-800000032c1628c1)     4294967263

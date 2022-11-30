@@ -11,7 +11,7 @@ data    565402a46010    8000000354a9e010
 code    565402a42259    3bd4cc259
 
 === finding the start, end address and size for this thread segment=== 
- segname        vir_start  -  vir_end           (phy_start  -  phy_end)         segment size(in words)
+ segname        vir_start  -  vir_end           (phy_start  -  phy_end)         segment size(in bytes)
  code_seg:      565402a42000-565402a433a5       (3bd4cc000-3bd4cf3a5)                   4294954075
  data_seg:      565402a45d5c-565402a46014       (800000037d8d6d5c-8000000354a9e014)     686001480
  heap_seg:      565402f13000-565402f34000       (800000035709e000-0)                    1460264960
@@ -28,7 +28,7 @@ data    565402a46010    8000000354a9e010
 code    565402a42259    3bd4cc259
 
 === finding the start, end address and size for this thread segment=== 
- segname        vir_start  -  vir_end           (phy_start  -  phy_end)         segment size(in words)
+ segname        vir_start  -  vir_end           (phy_start  -  phy_end)         segment size(in bytes)
  code_seg:      565402a42000-565402a433a5       (3bd4cc000-3bd4cf3a5)                   4294954075
  data_seg:      565402a45d5c-565402a46014       (800000037d8d6d5c-8000000354a9e014)     686001480
  heap_seg:      565402f13000-565402f34000       (800000035709e000-0)                    1460264960
@@ -45,7 +45,7 @@ data    565402a46010    8000000354a9e010
 code    565402a42259    3bd4cc259
 
 === finding the start, end address and size for this thread segment=== 
- segname        vir_start  -  vir_end           (phy_start  -  phy_end)         segment size(in words)
+ segname        vir_start  -  vir_end           (phy_start  -  phy_end)         segment size(in bytes)
  code_seg:      565402a42000-565402a433a5       (3bd4cc000-3bd4cf3a5)                   4294954075
  data_seg:      565402a45d5c-565402a46014       (800000037d8d6d5c-8000000354a9e014)     686001480
  heap_seg:      565402f13000-565402f34000       (800000035709e000-0)                    1460264960
