@@ -15,7 +15,7 @@ before you start, use ctrl+f to replace my_get_cpu_number with your syscall
     - at the bottom add
     - asmlinkage long sys_my_get_cpu_number(void);
 - vim arch/x86/entry/syscalls/syscall_64.tbl
-    xxx     common  my_get_cpu_number                sys_my_get_cpu_number
+    444     common  my_get_cpu_number                sys_my_get_cpu_number
 - sudo make menuconfig
 - sudo make -j4
 - sudo make modules_install install -j4
