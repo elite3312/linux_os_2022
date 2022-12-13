@@ -1,20 +1,21 @@
 # my cheat sheet for adding syscall
-before you start, use ctrl+f to replace my_get_physical_address with your syscall
+before you start, use ctrl+f to replace my_get_cpu_number with your syscall
+- cd ~/linux-5.8.1/
 
-- mkdir my_get_physical_address
-- vim my_get_physical_address/my_get_physical_address.c
+- mkdir my_get_cpu_number
+- vim my_get_cpu_number/my_get_cpu_number.c
     - #write syscall
-- vim my_get_physical_address/Makefile
-    - obj-y := my_get_physical_address.o
+- vim my_get_cpu_number/Makefile
+    - obj-y := my_get_cpu_number.o
 - vim Makefile
     - /core-y
-    - kernel/ certs/ mm/ fs/ ipc/ security/ crypto/ block/ my_get_physical_address/
+    - kernel/ certs/ mm/ fs/ ipc/ security/ crypto/ block/ my_get_cpu_number/
 
 - vim include/linux/syscalls.h
     - at the bottom add
-    - asmlinkage long sys_my_get_physical_address(void);
+    - asmlinkage long sys_my_get_cpu_number(void);
 - vim arch/x86/entry/syscalls/syscall_64.tbl
-    xxx     common  my_get_physical_address                sys_my_get_physical_address
+    xxx     common  my_get_cpu_number                sys_my_get_cpu_number
 - sudo make menuconfig
 - sudo make -j4
 - sudo make modules_install install -j4
