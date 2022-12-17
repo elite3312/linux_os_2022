@@ -4,14 +4,14 @@
 #include <string.h>
 #include <sys/types.h>
 #include <syscall.h>
-#define __NR_my_get_cpu_number 444
-int getcpu_default(unsigned *cpu,unsigned *node)//the 3rd argument for getcpu is depricated since linux 2.6
+#define __NR_my_get_cpu_number 440
+int getcpu_default(unsigned *cpu,unsigned *node)
 {
-        return syscall(SYS_getcpu,cpu,node,NULL);
+        return syscall(SYS_getcpu,cpu,node,NULL);//the 3rd argument for getcpu is depricated since linux 2.6
 }
 
 
-int getcpu_my_call(unsigned *cpu)//the 3rd argument for getcpu is depricated since linux 2.6
+int getcpu_my_call(unsigned *cpu)
 {
         return *cpu=syscall(__NR_my_get_cpu_number);
 }
@@ -29,7 +29,6 @@ int main(void)
 
         printf("cpu = %u (found with task_struct->cpu)\n",cpu);
         /*******/
-        //unsigned cpu;
         unsigned node;
 
         if(getcpu_default(&cpu,&node)==-1)
