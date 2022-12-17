@@ -29,6 +29,7 @@
 參考資料:無
 * grub選單沒出現
 解法:編輯grub 
+    vim /etc/default/grub
     ```shell
     GRUB_DEFAULT=0
     GRUB_TIMEOUT_STYLE=menu
