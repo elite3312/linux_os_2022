@@ -10,7 +10,7 @@
 #define __NR_stop_to_count_number_of_process_switches 442
 #define ON  1
 #define OFF 0
-printf("pid = %d  tid = %d\n", (int)getpid(), (int)gettid());
+
 
 
 struct timeval {
@@ -20,7 +20,10 @@ struct timeval {
 
 void main()
     {             
-    int   a,b=0;
+    printf("pid = %d  tid = %d\n", (int)getpid(), (int)gettid());
+    int   a,b;
+    a=0;
+    b=0;
     int   _switch=ON;
     struct timeval tv;
     gettimeofday(&tv,NULL);
