@@ -22,7 +22,7 @@ void main()
     {             
     int   a,b=0;
     int   _switch=ON;
-    struct timeval restrict tv;
+    struct timeval tv;
     gettimeofday(&tv,NULL);
     int start_time_in_seconds=tv.tv_sec;                                                   
     syscall(__NR_start_to_count_number_of_process_switches);
