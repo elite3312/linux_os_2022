@@ -13,11 +13,6 @@
 
 
 
-struct timeval {
-    time_t      tv_sec;     /* seconds */
-    suseconds_t tv_usec;    /* microseconds */
-};
-
 void main()
     {             
     printf("pid = %d  tid = %d\n", (int)getpid(), (int)gettid());
@@ -28,15 +23,19 @@ void main()
     struct timeval tv;
     gettimeofday(&tv,NULL);
     int start_time_in_seconds=tv.tv_sec;                                                   
+    
+    printf("current_time_in_seconds: %d", &start_time_in_seconds);
     syscall(__NR_start_to_count_number_of_process_switches);
     while(_switch==ON)
     {
                                 
-        sleep(0.01);
+        //sleep(0.01);
+        sleep(1);
         printf("[%d ]",b++);
 
         gettimeofday(&tv,NULL);
-        int current_time_in_seconds=tv.tv_sec;                               
+        int current_time_in_seconds=tv.tv_sec;     
+        printf("current_time_in_seconds: %d", &current_time_in_seconds);
         if ((current_time_in_seconds-start_time_in_seconds)>=120)_switch=OFF;            
                                 
     }
