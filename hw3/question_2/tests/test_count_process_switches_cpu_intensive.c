@@ -13,10 +13,13 @@
                    
 void main()
 {            
+    printf("pid = %d  tid = %d\n", (int)getpid(), (int)gettid());
+    printf("This program is cpu intensive!\n");
+    /******/
     int a;
     int  _switch=ON;
     float   b=0;
-              :                   
+                            
     struct timeval tv;
     gettimeofday(&tv,NULL);
     int start_time_in_seconds=tv.tv_sec;                                                   

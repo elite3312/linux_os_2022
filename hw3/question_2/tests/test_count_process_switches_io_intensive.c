@@ -16,6 +16,7 @@
 void main()
     {             
     printf("pid = %d  tid = %d\n", (int)getpid(), (int)gettid());
+    printf("This program is IO intensive!\n");
     /*******/
     int a,b;
     a=0;
