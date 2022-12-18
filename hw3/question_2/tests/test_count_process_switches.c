@@ -28,19 +28,17 @@ void main()
     printf("start_time_in_seconds: %d\n", start_time_in_seconds);
     
     syscall(__NR_start_to_count_number_of_process_switches);
-    return 0;
     while(_switch==ON)
     {
                                 
-        //sleep(0.01);
-        sleep(1);
+        sleep(0.01);
         printf("[%d ]",b++);
 
         gettimeofday(&tv,NULL);
         current_time_in_seconds=tv.tv_sec;     
-        if ((current_time_in_seconds-start_time_in_seconds)>=120)_switch=OFF;            
+        if ((current_time_in_seconds-start_time_in_seconds)>=120){_switch=OFF;            }
                                 
     }
     a=syscall(__NR_stop_to_count_number_of_process_switches);
-    printf("\nDuring the past 2 minutes the process makes %d times process switches.\n",a);
+    printf("\nDuring the past 2 minutes the process made %d times process switches.\n",a);
 }
