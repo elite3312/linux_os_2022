@@ -24,10 +24,11 @@ void main()
     struct timeval tv;
     gettimeofday(&tv,NULL);
     int start_time_in_seconds=tv.tv_sec;                                                   
+    int current_time_in_seconds;
+    printf("start_time_in_seconds: %d\n", start_time_in_seconds);
     
-    printf("current_time_in_seconds: %d", start_time_in_seconds);
-    return 0;
     syscall(__NR_start_to_count_number_of_process_switches);
+    return 0;
     while(_switch==ON)
     {
                                 
@@ -36,8 +37,7 @@ void main()
         printf("[%d ]",b++);
 
         gettimeofday(&tv,NULL);
-        int current_time_in_seconds=tv.tv_sec;     
-        printf("current_time_in_seconds: %d", current_time_in_seconds);
+        current_time_in_seconds=tv.tv_sec;     
         if ((current_time_in_seconds-start_time_in_seconds)>=120)_switch=OFF;            
                                 
     }
