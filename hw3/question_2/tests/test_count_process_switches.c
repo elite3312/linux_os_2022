@@ -16,7 +16,8 @@
 void main()
     {             
     printf("pid = %d  tid = %d\n", (int)getpid(), (int)gettid());
-    int   a,b;
+    /*******/
+    int a,b;
     a=0;
     b=0;
     int   _switch=ON;
@@ -24,7 +25,8 @@ void main()
     gettimeofday(&tv,NULL);
     int start_time_in_seconds=tv.tv_sec;                                                   
     
-    printf("current_time_in_seconds: %d", &start_time_in_seconds);
+    printf("current_time_in_seconds: %d", start_time_in_seconds);
+    return 0;
     syscall(__NR_start_to_count_number_of_process_switches);
     while(_switch==ON)
     {
@@ -35,7 +37,7 @@ void main()
 
         gettimeofday(&tv,NULL);
         int current_time_in_seconds=tv.tv_sec;     
-        printf("current_time_in_seconds: %d", &current_time_in_seconds);
+        printf("current_time_in_seconds: %d", current_time_in_seconds);
         if ((current_time_in_seconds-start_time_in_seconds)>=120)_switch=OFF;            
                                 
     }
