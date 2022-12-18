@@ -8,8 +8,8 @@
 
 #define __NR_start_to_count_number_of_process_switches 441
 #define __NR_stop_to_count_number_of_process_switches 442
-#define ON  1;
-#define OFF 0;
+#define ON  1
+#define OFF 0
 printf("pid = %d  tid = %d\n", (int)getpid(), (int)gettid());
 
 
