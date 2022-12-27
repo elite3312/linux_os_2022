@@ -1,8 +1,8 @@
 # Linux OS 2022 Project 2
 **許富皓教授**好人一生平安
 
->Group: 第 14 組 
-Member: 吳永璿 李玟卉 翁培馨
+>Group: 第 14 組  
+Member: 吳永璿 李玟卉 翁培馨  
 Project 1 可以參考[這篇](https://hackmd.io/MBn8nRiLQFy66B0L_RFevg?view#Result)
 # Goal
 - Write a program using the system call you wrote in Project 1 to check how memory areas are shared by two processes that execute this program simultaneously.

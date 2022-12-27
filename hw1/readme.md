@@ -42,17 +42,17 @@
 
 # 新增的System call
 我們共新增兩隻System call
-* my_other_get_phy_addr.c
-我們使用Kernel 5.8.1。
+* my_other_get_phy_addr.c  
+我們使用Kernel 5.8.1。  
 我們這裡有一個小bug：我們原先以為該版本支援5-level page table來管理 virtual memory，所以system call將依序從 pgd、p4d、pud、pmd、pte進行查表。
 但實際上若沒有在編譯kernel時勾選5-level page tabel的選項，預設仍會採用4-level page tables。
-在kernel中定義有 pgtable-nop4d.h，在針對 p4d 進行查表的過程中，會利用這裡定義的變數及相關函式，使得查找 p4d 的結果回傳為與 pgd 相同的數值。
+在kernel中定義有 pgtable-nop4d.h，在針對 p4d 進行查表的過程中，會利用這裡定義的變數及相關函式，使得查找 p4d 的結果回傳為與 pgd 相同的數值。  
 以下為pgtable-nop4d.h節錄之程式碼：
-```c=
+```c
 #define pgd_page(pgd)				(p4d_page((p4d_t){ pgd }))
 ```
 我們錯誤但仍正確運行之system call：
-```c=
+```c
 #include <linux/kernel.h>
 #include <linux/string.h>
 #include <linux/uaccess.h>
@@ -144,13 +144,13 @@ SYSCALL_DEFINE2(my_other_get_phy_addr, unsigned long *, initial,
 	return 0;
 }
 ```
-* my_get_segment.c
-首先藉由find_task_by_vpid找出目前執行process的task_struct。
-接著存取該task_struct底下的mm_structmanagement相關的mm_struct。
-mm_struct 描述了一個process的整個虛擬地址空間，包含各segment的起始結束位址。
+* my_get_segment.c  
+首先藉由find_task_by_vpid找出目前執行process的task_struct。  
+接著存取該task_struct底下的mm_structmanagement相關的mm_struct。  
+mm_struct 描述了一個process的整個虛擬地址空間，包含各segment的起始結束位址。  
 
 補充一點:如果直接從current查詢mm的話，就必須保證current指向的是我們要查詢的thread的task struct，造成syscall使用上的限制。
-``` c=
+``` c
 #include <linux/kernel.h>
 #include <linux/syscalls.h>
 #include <linux/sched.h>
@@ -226,15 +226,15 @@ SYSCALL_DEFINE1(my_get_segment, void* __user, user_thread_seg) {
 ```
 # Test code
 
-以下為user space的測試程式。包含main與2隻thread。每個thread會印出本身使用的各segment虛擬與實體記憶體位址，包含:
--- text segment
--- data segment (global variables with initial values)
--- BSS segment (global variables without initial values)
--- heap segment (memory area allocated through function malloc())
--- libraries
--- stack segment
+以下為user space的測試程式。包含main與2隻thread。每個thread會印出本身使用的各segment虛擬與實體記憶體位址，包含:  
+- text segment
+- data segment (global variables with initial values)
+- BSS segment (global variables without initial values)
+- heap segment (memory area allocated through function malloc())
+- libraries
+- stack segment
 * test_multi_thread.c
-``` c=
+``` c
 /*gcc -o test_multi_thread.out -pthread test_multi_thread.c */
 #include <stdio.h>
 #include <pthread.h>
@@ -524,24 +524,24 @@ int main()
     </tr>
     <!--Code--->
     <tr>
-        <td rowspan="2">Code</td><td>Virtual</td><td style="background-color:rgb(118, 238, 198)">565402a42259</td><td style="background-color:rgb(118, 238, 198)">565402a42259</td><td style="background-color:rgb(118, 238, 198)">565402a42259</td>
+        <td rowspan="2">Code</td><td>Virtual</td><td style="background-color:rgb(144,144,255)">565402a42259</td><td style="background-color:rgb(144,144,255)">565402a42259</td><td style="background-color:rgb(144,144,255)">565402a42259</td>
     </tr>
     <tr>
-        <td>Physical</td><td style="background-color:rgb(118, 238, 198)">3bd4cc259</td><td style="background-color:rgb(118, 238, 198)">3bd4cc259</td><td style="background-color:rgb(118, 238, 198)">3bd4cc259</td>
+        <td>Physical</td><td style="background-color:rgb(144,144,255)">3bd4cc259</td><td style="background-color:rgb(144,144,255)">3bd4cc259</td><td style="background-color:rgb(144,144,255)">3bd4cc259</td>
     </tr>
     <!--Data--->
     <tr>
-        <td rowspan="2">Data</td><td >Virtual</td><td style="background-color:rgb(118, 238, 198)">565402a46010</td><td style="background-color:rgb(118, 238, 198)">565402a46010</td><td style="background-color:rgb(118, 238, 198)">565402a46010</td>
+        <td rowspan="2">Data</td><td >Virtual</td><td style="background-color:rgb(144,144,255)">565402a46010</td><td style="background-color:rgb(144,144,255)">565402a46010</td><td style="background-color:rgb(144,144,255)">565402a46010</td>
     </tr>
     <tr>
-        <td>Physical</td><td style="background-color:rgb(118, 238, 198)">8000000354a9e010</td><td style="background-color:rgb(118, 238, 198)">8000000354a9e010</td><td style="background-color:rgb(118, 238, 198)">8000000354a9e010</td>
+        <td>Physical</td><td style="background-color:rgb(144,144,255)">8000000354a9e010</td><td style="background-color:rgb(144,144,255)">8000000354a9e010</td><td style="background-color:rgb(144,144,255)">8000000354a9e010</td>
     </tr>
     <!--BSS--->
     <tr>
-        <td rowspan="2">BSS</td><td>Virtual</td><td style="background-color:rgb(118, 238, 198)">565402a46018</td><td style="background-color:rgb(118, 238, 198)">565402a46018</td><td style="background-color:rgb(118, 238, 198)">565402a46018</td>
+        <td rowspan="2">BSS</td><td>Virtual</td><td style="background-color:rgb(144,144,255)">565402a46018</td><td style="background-color:rgb(144,144,255)">565402a46018</td><td style="background-color:rgb(144,144,255)">565402a46018</td>
     </tr>
     <tr>
-        <td>Physical</td><td style="background-color:rgb(118, 238, 198)">8000000354a9e018</td><td style="background-color:rgb(118, 238, 198)">8000000354a9e018</td><td style="background-color:rgb(118, 238, 198)">8000000354a9e018</td>
+        <td>Physical</td><td style="background-color:rgb(144,144,255)">8000000354a9e018</td><td style="background-color:rgb(144,144,255)">8000000354a9e018</td><td style="background-color:rgb(144,144,255)">8000000354a9e018</td>
     </tr>
     <!--Heap--->
     <tr>
@@ -552,10 +552,10 @@ int main()
     </tr>
     <!--Library--->
     <tr>
-        <td rowspan="2">Library</td><td>Virtual</td><td style="background-color:rgb(118, 238, 198)">7f4ef9cae0c0</td><td style="background-color:rgb(118, 238, 198)">7f4ef9cae0c0</td><td style="background-color:rgb(118, 238, 198)">7f4ef9cae0c0</td>
+        <td rowspan="2">Library</td><td>Virtual</td><td style="background-color:rgb(144,144,255)">7f4ef9cae0c0</td><td style="background-color:rgb(144,144,255)">7f4ef9cae0c0</td><td style="background-color:rgb(144,144,255)">7f4ef9cae0c0</td>
     </tr>
     <tr>
-        <td>Physical</td><td style="background-color:rgb(118, 238, 198)">18d3a60c0</td><td style="background-color:rgb(118, 238, 198)">18d3a60c0</td><td style="background-color:rgb(118, 238, 198)">18d3a60c0</td>
+        <td>Physical</td><td style="background-color:rgb(144,144,255)">18d3a60c0</td><td style="background-color:rgb(144,144,255)">18d3a60c0</td><td style="background-color:rgb(144,144,255)">18d3a60c0</td>
     </tr>
     <!--Stack--->
     <tr>

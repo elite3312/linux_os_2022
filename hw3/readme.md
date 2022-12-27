@@ -109,8 +109,9 @@ int main(void)
 }
 ```
 ## 測試結果
-這是執行結果:
-由於我配置了4個cpu core給虛擬機，因此cpu_number介於0到3。![q1](https://i.imgur.com/hdxQm6T.png)
+這是執行結果:  
+由於我配置了4個cpu core給虛擬機，因此cpu_number介於0到3。  
+![q1](https://i.imgur.com/hdxQm6T.png)
 
 # Question 2
 - (80 points) Write a new system call **void start_to_count_number_of_process_switches()** so that a process can use it to begin to count the number of process switches the process makes. Besides, write another new system call **int stop_to_count_number_of_process_switches()** so that a process can use it to stop to count the number of process switches the process makes and return the number of process switches the process makes.
@@ -126,8 +127,8 @@ int stop_to_count_number_of_process_switches()
 # Question 2 solution
 首先我們來確定題目具體要問甚麼。題目說`count the number of process switches the process makes`。
 
-我們知道process switch發生在process之process state由running轉成ready(把cpu給別人)，或由ready轉running(把cpu搶回來)。如下圖圈圈所示：
-![](https://i.imgur.com/yfo5ECm.png)
+我們知道process switch發生在process之process state由running轉成ready(把cpu給別人)，或由ready轉running(把cpu搶回來)。如下圖圈圈所示：  
+![](https://i.imgur.com/yfo5ECm.png)  
 因此我們會計算這兩種process switch發生次數的總和。
 
 ## task_struct
@@ -341,10 +342,10 @@ void main()
 ```
 ## 測試結果
 我們觀察到CPU intensive program之context switch次數少於I/O intensive program。
-I/O intensive program:
-![](https://i.imgur.com/UGGhE49.png)
+I/O intensive program:  
+![](https://i.imgur.com/UGGhE49.png)  
 
-CPU intensive program:
+CPU intensive program:  
 ![](https://i.imgur.com/Ek1kmu2.png)
 # 參考資料
 1. https://frankjkl.github.io/2019/03/09/Linux%E5%86%85%E6%A0%B8-smp_processor_id/
