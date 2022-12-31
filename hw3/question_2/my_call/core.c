@@ -4215,7 +4215,7 @@ static void __sched notrace __schedule(bool preempt)
 
 		trace_sched_switch(preempt, prev, next);
         /*counting number of process switches*/
-        prev->process_switches_count++;//the current process gets swapped oute, so add 1 to it's process_switches_count
+        //prev->process_switches_count++;//the current process gets swapped oute, so add 1 to it's process_switches_count
         next->process_switches_count++;//the next process gets swapped in, so add 1 to it's process_switches_count
 		/* Also unlocks the rq: */
 		rq = context_switch(rq, prev, next, &rf);

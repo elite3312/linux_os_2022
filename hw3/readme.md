@@ -129,7 +129,7 @@ int stop_to_count_number_of_process_switches()
 
 我們知道process switch發生在process之process state由running轉成ready(把cpu給別人)，或由ready轉running(把cpu搶回來)。如下圖圈圈所示：  
 ![](https://i.imgur.com/yfo5ECm.png)  
-因此我們會計算這兩種process switch發生次數的總和。
+由running轉成ready(把cpu給別人)跟由ready轉running(把cpu搶回來)的數目是一樣的，所以我們只計算由ready轉running(把cpu搶回來)的數目。
 
 ## task_struct
 由於是要記錄per process之process switch次數資訊，因此我們決定在task_struct新增欄位。
@@ -195,7 +195,7 @@ static void __sched notrace __schedule(bool preempt)
 		psi_sched_switch(prev, next, !task_on_rq_queued(prev));
 
 		trace_sched_switch(preempt, prev, next);
-                prev->process_switches_count++;//the current process gets swapped out, so add 1 to it's process_switches_count
+                //prev->process_switches_count++;//the current process gets swapped out, so add 1 to it's process_switches_count
                 next->process_switches_count++;//the next process gets swapped in, so add 1 to it's process_switches_count
 		/* Also unlocks the rq: */
 		rq = context_switch(rq, prev, next, &rf);
@@ -208,9 +208,8 @@ static void __sched notrace __schedule(bool preempt)
 }
 ```
 我們看到當scheduler決定要將目前使用cpu之process swap out，會觸發`if(likely(prev != next)){...}`之進入條件。我們更進一步確認到在調用`rq = context_switch(rq, prev, next, &rf);`之前，`prev`與`next`分別對應被swap out之process與即將取得cpu之process descriptor。
-因此我們在`rq = context_switch(rq, prev, next, &rf);`之前加入以下兩行，來計算per process被swap out與swap out別人的次數:
+因此我們在`rq = context_switch(rq, prev, next, &rf);`之前加入這行，來計算每個process swap out別人的次數:
 ```c
-prev->process_switches_count++;//the current process gets swapped out, so add 1 to it's process_switches_count
 next->process_switches_count++;//the next process gets swapped in, so add 1 to it's process_switches_count
 ```
 ## 新增之system call
