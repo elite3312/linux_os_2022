@@ -129,7 +129,7 @@ int stop_to_count_number_of_process_switches()
 
 我們知道process switch發生在process之process state由running轉成ready(把cpu給別人)，或由ready轉running(把cpu搶回來)。如下圖圈圈所示：  
 ![](https://i.imgur.com/yfo5ECm.png)  
-由running轉成ready(把cpu給別人)跟由ready轉running(把cpu搶回來)的數目是一樣的，所以我們只計算由ready轉running(把cpu搶回來)的數目。
+對同一隻process而言，由running轉成ready(把cpu給別人)跟由ready轉running(把cpu搶回來)的數目是一樣的，所以我們只計算由ready轉running(把cpu搶回來)的數目。
 
 ## task_struct
 由於是要記錄per process之process switch次數資訊，因此我們決定在task_struct新增欄位。
@@ -342,10 +342,12 @@ void main()
 ## 測試結果
 我們觀察到CPU intensive program之context switch次數少於I/O intensive program。
 I/O intensive program:  
-![](https://i.imgur.com/UGGhE49.png)  
+
+![](https://i.imgur.com/7Wdhxie.png)
 
 CPU intensive program:  
-![](https://i.imgur.com/Ek1kmu2.png)
+![](https://i.imgur.com/zEJ4X9E.png)
+
 # 參考資料
 1. https://frankjkl.github.io/2019/03/09/Linux%E5%86%85%E6%A0%B8-smp_processor_id/
 2. https://man7.org/linux/man-pages/man2/getcpu.2.html
