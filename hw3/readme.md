@@ -347,6 +347,43 @@ I/O intensive program:
 
 CPU intensive program:  
 ![](https://i.imgur.com/zEJ4X9E.png)
+# Q&A
+1. taskstruct中randomized struct field是幹嘛用的？ 
+為了安全性打亂field記憶體位置。
+> The randstruct plugin is a new GCC add-on that lets the compiler randomize the layout of C structures. When enabled, the plugin will scramble the layout of the kernel structures that are specifically designated for randomization.
+
+ref [Randomizing structure layout](https://lwn.net/Articles/722293/)
+
+2. 為甚麼task_struct中thread_struct要放最後？
+為了快速存取thread_info。
+>The top of task_struct is as follows:
+
+    struct task_struct {
+    #ifdef CONFIG_THREAD_INFO_IN_TASK
+	    /*
+	     * For reasons of header soup (see current_thread_info()), this
+	     * must be the first element of task_struct.
+	     */
+	    struct thread_info		thread_info;
+    #endif
+> To make it easy for current_thread_info() to get to the thread_info structure of the current running thread, it is possible to just use a struct thread_info pointer to the first element of the task_struct without having to actually include the file that defines it. This is to avoid circular header dependencies that arise from such an inclusion. Therefore, thread_info needs to be at that fixed location for the pointer access to work.
+ref [Randomizing structure layout](https://lwn.net/Articles/722293/)
+3. kernel/sched/core.c中nvcsw跟nivcsw是甚麼？
+自願跟非自願context switch
+
+4. kernel/sched/core.c中`rq = context_switch(rq, prev, next, &rf);`做了啥
+先儲存MCDPER register的值，會用mmgrab跟membarrier_switch_mm處理。
+
+5. cpu run-queue中是用甚麼當priority?
+CFS Scheduler使用Weight Function將 nice value hash到一個weight 數值。
+ref:[link](https://hackmd.io/@RinHizakura/B18MhT00t)
+6. 一個linux os中會有幾個run-queue?
+幾顆cpu就個run-queue
+
+7. process如何從wait queue被叫醒到ready queue?
+__wake_up_common()會遍歷整個 wait queue，並執行其 wait_entry->func(喚醒涵式)。
+default_wake_function為喚醒涵式，在 wait_event 中會將要加入 wait queue 的 wait_entry->func 設為此 function。喚醒涵式會執行try_to_wake_up。
+ref:[link](https://github.com/OuTingYun/Linux/tree/main/Project3)
 
 # 參考資料
 1. https://frankjkl.github.io/2019/03/09/Linux%E5%86%85%E6%A0%B8-smp_processor_id/
